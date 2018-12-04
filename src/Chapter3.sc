@@ -22,17 +22,17 @@ object List {
     case Cons(x, xs) => x * product(xs)
   }
 
-  def foldRight[A,B](as: List[A], z:B)(f:(A,B)=>B): B = as match{
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = as match {
     case Nil => z
-    case Cons(x,xs)=> f(x,foldRight(xs,z)(f))
+    case Cons(x, xs) => f(x, foldRight(xs, z)(f))
   }
 
-  def sum2(ns: List[Int])= {
-    foldRight(ns,0)((x,y)=> x+y)
+  def sum2(ns: List[Int]) = {
+    foldRight(ns, 0)((x, y) => x + y)
   }
 
-  def product2(ns: List[Double])={
-    foldRight(ns,1.0)(_  * _)
+  def product2(ns: List[Double]) = {
+    foldRight(ns, 1.0)(_ * _)
   }
 
 
@@ -79,6 +79,33 @@ object List {
     case Cons(x, Nil) => Nil
     case Cons(x, xs) => Cons(x, init(xs))
   }
+
+  //3-9
+  def length[A](as: List[A]): Int = {
+    foldRight(as, 0)((x, y) => y + 1)
+  }
+
+  //3-10
+  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
+  }
+
+  //3-11
+  def sumLeft(ns: List[Int]): Int = {
+    foldLeft(ns, 0)((x, y) => x + y)
+  }
+
+  //3-11
+  def productLeft(ns: List[Double]): Double = {
+    foldLeft(ns, 1.0)(_ * _)
+  }
+
+  //3-11
+  def lengthLeft[A](ns: List[A]): Int = {
+    foldLeft(ns, 0)((x, y) => x + 1)
+  }
+
 
   def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
     case Nil => a2
@@ -146,10 +173,29 @@ println(List.dropWhile(x5, testFunction))
 /*
 3-7
 -> 바로 멈추지 않는다.
-->foldRight로 sum을 추적(trace)한것 처럼, 반드시 끝까지 순회, 를 해야지만 결과를 알 수 있다.
+->재귀를 멈추는 조건이 Nil이기 때문이다.
+foldRight로 sum을 추적(trace)한것 처럼, 반드시 끝까지 순회, 를 해야지만 결과를 알 수 있다.
 마찬가지로 product도 0.0이 사이에 나온다 하여 즉지 결과를 아는것이 아닌, 끝까지 순회를 마친 후
-결과를 알게 된다
+결과를 알게 된다.
  */
+
+/*
+3-8
+-> 그냥 List(1,2,3)이 나온다.
+->
+ */
+
+/*
+3-11검증
+* */
+println("3-11 검증")
+val x11 = List(1, 2, 3, 4, 5)
+println(List.sumLeft(x11))
+
+
+
+
+
 
 
 
