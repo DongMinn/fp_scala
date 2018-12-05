@@ -106,6 +106,11 @@ object List {
     foldLeft(ns, 0)((x, y) => x + 1)
   }
 
+  //3-12
+  def reverseList[A](ns: List[A]): List[A] = {
+    foldLeft(ns, Nil: List[A])((x, y) => Cons(y, x))
+  }
+
 
   def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
     case Nil => a2
