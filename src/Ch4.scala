@@ -27,7 +27,8 @@ object Ch4 extends App {
         case Some(a) => a
       }
     }
-//첫 Option 이 정의되저 있으면 그것을 돌려주고, 그렇지 않으면 두번째 Option을 돌려준다.
+
+    //첫 Option 이 정의되저 있으면 그것을 돌려주고, 그렇지 않으면 두번째 Option을 돌려준다.
     def orElse[B >: A](ob: => Option[B]): Option[B] = { //ob는 필요한 경우에만 평가한다.
       this match {
         case None => ob
@@ -67,6 +68,27 @@ object Ch4 extends App {
   case object None extends Option[Nothing]
 
   object Option {
+
+
+    def lift[A, B](f: A => B): Option[A] => Option[B] = _ map f
+
+    def Try[A](a: => A): Option[A] =
+      try Some(a)
+      catch {
+        case e: Exception => None
+      }
+
+
+    /*
+    4-3문제
+    * */
+    def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+      a.flatMap(aa => b.map(bb => f(aa, bb)))
+    }
+
+    def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+
+    }
 
   }
 
