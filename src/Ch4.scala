@@ -22,6 +22,8 @@ object Ch4 extends App {
     }
 
     def getOrElse[B >: A](default: => B): B = { //B >: A 는 B 형식 매개변수가 반드시 A 의 상위형식 이어야 함을 의미한다.
+      //Option의  Some 안의 결과를 돌려준다. 단 Option 이 None이면 기본값을 돌려준다.
+      //default : => B   해당 인수의 형식이 B이지만 그 인수가 함수에서 실제로 쓰일 때까지 평가하지 않음. 비 엄격성 (다음 챕터)
       this match {
         case None => default
         case Some(a) => a
@@ -38,11 +40,14 @@ object Ch4 extends App {
 
     def filter(f: A => Boolean): Option[A] = { //값이 f를 만족하지 않으면 Some 을 None으로 변환한다.
       this match {
-        case Some(a) if (f(a)) => this
+        case Some(a) if f(a) => this
         case _ => None
       }
     }
 
+    /*
+    4-2문제
+    * */
     def variance(xs: Seq[Double]): Option[Double] = {
       def average(seq: Seq[Double]): Option[Double] = {
         if (seq.isEmpty) None
