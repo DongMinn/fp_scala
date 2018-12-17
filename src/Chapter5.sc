@@ -5,7 +5,6 @@ sealed trait Stream[+A]{
   def toList: List[A] = this match{
     case Empty =>  Nil
     case Cons(h,t) => h()::t().toList
-
   }
 }
 
