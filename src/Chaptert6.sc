@@ -37,7 +37,10 @@ print(unit[Int](3))
 
 def map[A, B](s: Rand[A])(f: A => B): Rand[B] = {
   rng => {
-    val (a, rng2) = s(rng)
+    val (a, rng2) = s(
+
+
+      rng)
     (f(a), rng2)
   }
 }
